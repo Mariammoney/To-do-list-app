@@ -6,7 +6,7 @@ import Todo from '../components/Todo'
 
 const HomePage = () => {
 
-  const [TodosArray, setTodosArray] = useState([]);
+  const [todosArray, setTodosArray] = useState([]);
 
   const dummyTodos = [
     {
@@ -42,8 +42,17 @@ const HomePage = () => {
     
   ]
   useEffect(() => {
-    setTodosArray (dummyTodos);
+    setTodosArray(dummyTodos);
   }, []);
+
+  const addNewTaskFunction = (theTaskToAdd) => {
+    
+    // spread operator
+    console.log("this is the task to be added")
+    setTodosArray([...todosArray, theTaskToAdd]);
+    console.log("successfully added");
+    console.log(todosArray);
+  }
 
 
   return (
@@ -53,11 +62,14 @@ const HomePage = () => {
 
      <main>
 
-     <CreateTask/>
+     <CreateTask taskAdderProps ={addNewTaskFunction} />
      <div className='todos-wrapper'>
       {
-        TodosArray.map((todo) => (
+        todosArray.map((todo) => (
+          <div key={todo.id}>
+
             <Todo todoData={todo} />
+        </div>
 
         ))
       }

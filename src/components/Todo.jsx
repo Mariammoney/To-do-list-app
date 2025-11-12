@@ -22,7 +22,7 @@ const Todo = (props) => {
             <option>In Progress</option>
             <option>Completed</option>
         </select>
-        <buton>Delete</buton>
+        <button>Delete</button>
 
       </div>
 
