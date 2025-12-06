@@ -7,19 +7,21 @@
     border: 1px solid white;
     color: rgb(20, 20, 20);
     cursor: pointer;
-    transition:all 0.5s ease ;
+    transition: all 0.5s ease;
     border-radius: 8px;
-    padding: 0.5rem 1rem;
+     padding: 0.5rem 1rem;
 }
 .create-task-form button:hover{
     background-color: white;
     color: black;
 }
+
 .create-task-form input{
-    background-color: transparent;
+   background-color:transparent ;
     border: 1px solid white;
     border-radius: 8px;
     color: white;
     padding: 0.5rem 1rem;
     flex-grow: 1;
+
 }

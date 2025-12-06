@@ -3,84 +3,99 @@ import "./HomePage.css"
 import NavComponent from '../components/NavComponent'
 import CreateTask from '../components/CreateTask'
 import Todo from '../components/Todo'
+import Modal from '../components/Modal'
 
 const HomePage = () => {
 
-  const [todosArray, setTodosArray] = useState([]);
+    const [todosArray, setTodosArray] = useState([ ]);
 
-  const dummyTodos = [
-    {
-      id:1,
-      task: "Wash Clothes",
-      status: "Pending",
-      scheduleTime: "10:00 AM"
-    },
-    {
-      id: 2,
-      task: "Buy Groceries",
-      status: "In Progress",
-      scheduleTime: "1:00 PM"
-    },
-    {
-      id: 3,
-      task: "Read a Book",
-      status: "Completed",
-      scheduleTime: "3:00 PM"
-    },
-    {
-      id: 4,
-      task: "Exercise",
-      staus: "Pending",
-      scheduleTime: "6:00 PM"
-    },
-     {
-      id: 5,
-      task: "Clean the house",
-      staus: "In progress",
-      scheduleTime: "8:00 PM"
-    },
-    
-  ]
-  useEffect(() => {
-    setTodosArray(dummyTodos);
-  }, []);
+    const addNewTaskFunction = (theTaskToAdd) => {
+      
+        //spread operator
+        console.log("this is the task to be added", theTaskToAdd);
+        setTodosArray([...todosArray, theTaskToAdd]);
+        console.log("successfully added");
+        console.log(todosArray);
+    };
 
-  const addNewTaskFunction = (theTaskToAdd) => {
-    
-    // spread operator
-    console.log("this is the task to be added")
-    setTodosArray([...todosArray, theTaskToAdd]);
-    console.log("successfully added");
-    console.log(todosArray);
-  }
+    const editTodosArrayFunction = (editedTodo) => {
+
+
+
+        const newTodosArray = todosArray.map((todo) => {
+            if (todo.id === editedTodo.id) {
+                return {
+                    ...todo,
+                    task: editedTodo.task,
+                    status: editedTodo.status,
+                };
+            }   
+            return todo;
+        });
+         setTodosArray(newTodosArray);
+        
+       
+    }
+
+    const deleteTodoFunction = (todoToDelete) => {
+        
+
+        const newTodo = todosArray.filter((todo) => todo.id != todoToDelete.id);
+        setTodosArray(newTodo);
+    }
+
+    const resetTodoFunction = () => {
+        setTodosArray([]);
+    }
 
 
   return (
-    <div className='homepage'>
-     <NavComponent/>
+      <div className='homepage'>
+          <NavComponent propsResetFunction={resetTodoFunction} />
+          
 
+          <main>
+              
+              <CreateTask taskAdderProps={addNewTaskFunction} />
+              
+              {
+                  
+                  todosArray.length > 0 ?
+            
 
-     <main>
+                      <div className='todos-wrapper'>
+                  
+                          {
+                              todosArray.map((todo) => (
+                                  <div key={todo.id}>
+                              
+                                      <Todo
+                                          todoData={todo} propsEditTodoFunction={editTodosArrayFunction}
+                                          propsDeleteTodo={deleteTodoFunction}
+                                      />
+                                  </div>
+                              ))
+                          }
+                  
+            
+              
+              
+          
+                  
+                      </div>
 
-     <CreateTask taskAdderProps ={addNewTaskFunction} />
-     <div className='todos-wrapper'>
-      {
-        todosArray.map((todo) => (
-          <div key={todo.id}>
+                      
+                      :
+                      <div className='notodo'>
+                          No to do available
+                      </div>
+              
+              }
+              
 
-            <Todo todoData={todo} />
-        </div>
+          </main>
 
-        ))
-      }
-
-
-     </div>
-     
-     </main>
-
-
-
+          
     </div>
   )
 }

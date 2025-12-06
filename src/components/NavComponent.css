@@ -2,11 +2,14 @@
     display: flex;
     padding: 1rem 4rem;
     justify-content: space-between;
-    align-self: center;
+    align-items: center;
     background-color: #1E1E1E;
-    box-shadow: 0 4px 6px rgba(0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     
+
 }
+
+
 .nav-component button{
     padding: 0.5rem 1rem;
     background-color: #4CAF50;
@@ -16,6 +19,7 @@
     cursor: pointer;
     transition: all 0.5s ease;
 }
+
 .nav-component button:hover{
     opacity: .8;
 }
